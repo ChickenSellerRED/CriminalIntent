@@ -1,4 +1,5 @@
 <resources>
     <string name="bug1">UUID使用了 == 判断相等导致出错 要用equals</string>
     <string name="bug2">layout引用的string 把@写成了！</string>
+    <string name="bug3">AppCompatActivity继承自FragmentActivity 并且它才有actionbar， FragmentActivity没有</string>
 </resources>
