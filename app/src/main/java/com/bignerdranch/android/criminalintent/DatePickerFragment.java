@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +25,8 @@ public class DatePickerFragment extends DialogFragment {
             "DatePickerFragment.date";
     public static final String BUNDLE_DATE =
             "DatePickerFragment.bundle";
+    private final static String DIALOG_TIME =
+            "time";
     private Date mDate;
     public static DatePickerFragment newInstance(Date date) {
         Bundle args = new Bundle();
@@ -45,12 +48,11 @@ public class DatePickerFragment extends DialogFragment {
 
         View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_date,null);
 
-        DatePicker datePicker = (DatePicker) v.findViewById(R.id.dialog_date_datePicker);
+        DatePicker datePicker = v.findViewById(R.id.dialog_date_datePicker);
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 mDate = new GregorianCalendar(year,monthOfYear,dayOfMonth).getTime();
-
                 getArguments().putSerializable(EXTRA_DATE, mDate);
             }
         });
@@ -60,13 +62,15 @@ public class DatePickerFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Date crimeDate = (Date)getArguments().getSerializable(EXTRA_DATE);
-                        Bundle bd = new Bundle();
-                        bd.putSerializable(BUNDLE_DATE,mDate);
-                        getParentFragmentManager().setFragmentResult(REQUEST_CODE,bd);
+
+//                        Date crimeDate = (Date)getArguments().getSerializable(EXTRA_DATE);
+//                        Bundle bd = new Bundle();
+//                        bd.putSerializable(BUNDLE_DATE,mDate);
+//                        getParentFragmentManager().setFragmentResult(REQUEST_CODE,bd);
+                        TimePickerFragment timePickerFragment = TimePickerFragment.newInstance(mDate);
+                        timePickerFragment.show(getParentFragmentManager(),DIALOG_TIME);
                     }
                 })
-
                 .setView(v)
                 .create();
     }

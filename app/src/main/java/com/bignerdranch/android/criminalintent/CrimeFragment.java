@@ -74,11 +74,19 @@ public class CrimeFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
-                getParentFragmentManager().setFragmentResultListener(DatePickerFragment.REQUEST_CODE,
+//                getParentFragmentManager().setFragmentResultListener(DatePickerFragment.REQUEST_CODE,
+//                        getViewLifecycleOwner(), new FragmentResultListener() {
+//                            @Override
+//                            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+//                                mCrime.setDate((Date)result.getSerializable(DatePickerFragment.BUNDLE_DATE));
+//                                mDateButton.setText(mCrime.getDate().toString());
+//                            }
+//                        });
+                getParentFragmentManager().setFragmentResultListener(TimePickerFragment.REQUEST_CODE,
                         getViewLifecycleOwner(), new FragmentResultListener() {
                             @Override
                             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                                mCrime.setDate((Date)result.getSerializable(DatePickerFragment.BUNDLE_DATE));
+                                mCrime.setDate((Date)result.getSerializable(TimePickerFragment.BUNDLE_TIME));
                                 mDateButton.setText(mCrime.getDate().toString());
                             }
                         });
